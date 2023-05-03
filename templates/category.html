@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Статьи в категории {{ category }} - {{ SITENAME }}{% endblock %}
+{% block content %}
+{% block content_title %}
+<section class="container">
+    <div class="container underline"><h1>Статьи в категории <a href="{{ SITEURL }}/{{ category.url }}" class="text">{{ category }}</a></h1></div>
+</section>
+{% endblock %}
+<section class="container">
+    {% for article in articles_page.object_list %}
+        <article{% if not loop.last %} class="container underline h" 
+        {% else %} class="container h"{% endif %}>
+                <header> 
+                        <h2><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Перейти к {{ article.title|striptags }} от {{ article.author }}">{{ article.title }}</a></h2> 
+                        <div class="date">от <a href="{{ SITEURL }}/{{ article.author.url }}" rel="bookmark" title="Перейти к {{ article.author }}">{{ article.author }}</a></div>
+                </header>
+                <div> {{ article.summary }} </div>
+                <div class="date h">{{ article.locale_date }}</div>
+        </article>
+    {% endfor %}
+{% include 'pagination.html' %}
+</section>
+{% endblock content %}

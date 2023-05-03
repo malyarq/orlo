@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+        <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+        <meta charset="utf-8" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{ SITEURL }}/theme/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ SITEURL }}/theme/assets/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="{{ SITEURL }}/theme/css/style.css" rel="stylesheet">
+	    {% if FAVICON %}
+	    <link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON }}" type="image/x-icon" />
+	    {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        {% if FEED_ALL_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed">
+        {% endif %}
+        {% if FEED_ALL_RSS %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed">
+        {% endif %}
+        {% if FEED_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed">
+        {% endif %}
+        {% if FEED_RSS %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed">
+        {% endif %}
+        {% if CATEGORY_FEED_ATOM and category %}
+        <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed">
+        {% endif %}
+        {% if CATEGORY_FEED_RSS and category %}
+        <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed">
+        {% endif %}
+        {% if TAG_FEED_ATOM and tag %}
+        <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_ATOM|format(tag.slug) }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed">
+        {% endif %}
+        {% if TAG_FEED_RSS and tag %}
+        <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
+        {% endif %}
+        {% endblock head %}
+    </head>
+    <body>
+        <header id="header" class="header-top">
+            <div class="container">
+                <h1><a href="{{ SITEURL }}">{{ SITENAME }}</a></h1>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a href="{{ SITEURL }}">Главная</a></li>
+                    {% for p in pages %}
+                        <li><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+                    {% endfor %}
+                        <li><a href="{{ SITEURL }}/categories.html">Категории</a></li>
+                        <li><a href="{{ SITEURL }}/tags.html">Теги</a></li>
+                        <li><a href="{{ SITEURL }}/archives.html">Архив</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+            </div>
+        </header>
+        {% block content %}
+        {% endblock %}
+        <section class="container">
+            <footer class="footer">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-auto">
+                        2023 &copy; <a href="{{SITEURL}}">{{SITENAME}}</a> с гордостью работает на <a href="http://getpelican.com/">Pelican</a>
+                        <p>Тема создана <a href="https://github.com/malyarq">мной</a></p>
+                    </div>
+                    <div class="col sprava">
+                        {% for name, link, icon in SOCIAL %}
+                            <a href="{{ link }}"><i class="{{ icon }}" aria-hidden="true"></i></a>
+                        {% endfor %}
+                        <!--a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}"><i class="fa fa-rss" aria-hidden="true"></i></a-->
+                        <a href="https://ru.wikipedia.org/wiki/RSS"><i class="fa fa-rss" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </section>
+        <script src="{{ SITEURL }}/theme/js/main.js"></script>
+    </body>
+</html>
